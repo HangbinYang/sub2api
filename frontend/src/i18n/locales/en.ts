@@ -14,7 +14,7 @@ export default {
     heroSubtitle: 'One Key, All AI Models',
     heroDescription: 'No need to manage multiple subscriptions. Access Claude, GPT, Gemini and more with a single API key',
     tags: {
-      subscriptionToApi: 'Subscription to API',
+      subscriptionToApi: 'Official Direct API',
       stickySession: 'Session Persistence',
       realtimeBilling: 'Pay As You Go'
     },
@@ -46,10 +46,10 @@ export default {
       subtitle: 'Three simple steps to stress-free AI access'
     },
     features: {
-      unifiedGateway: 'One-Click Access',
-      unifiedGatewayDesc: 'Get a single API key to call all connected AI models. No separate applications needed.',
+      unifiedGateway: 'Quick Access',
+      unifiedGatewayDesc: 'Get one API key and enjoy OpenClaw, Hermes Agent, and all kinds of vibe-coding agents.',
       multiAccount: 'Always Reliable',
-      multiAccountDesc: 'Smart routing across multiple upstream accounts with automatic failover. Say goodbye to errors.',
+      multiAccountDesc: 'Intelligent routing, dedicated lines, and stable 24/7 service.',
       balanceQuota: 'Pay What You Use',
       balanceQuotaDesc: 'Usage-based billing with quota limits. Full visibility into team consumption.'
     },

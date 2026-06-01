@@ -1,0 +1,6 @@
+services:
+  sub2api:
+    image: ${SUB2API_LOCAL_IMAGE:-sub2api-local:codex-dev}
+    build:
+      context: ..
+      dockerfile: Dockerfile
