@@ -25,14 +25,8 @@
     <!-- Right: rate pill + checkmark (vertically centered to first row) -->
     <div class="flex shrink-0 items-center gap-2 pt-0.5">
       <!-- Rate pill (platform color) -->
-      <span v-if="rateMultiplier !== undefined" :class="['inline-flex items-center whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold', ratePillClass]">
-        <template v-if="hasCustomRate">
-          <span class="mr-1 line-through opacity-50">{{ rateMultiplier }}x</span>
-          <span class="font-bold">{{ userRateMultiplier }}x</span>
-        </template>
-        <template v-else>
-          {{ rateMultiplier }}x 倍率
-        </template>
+      <span v-if="effectiveRateMultiplier !== undefined" :class="['inline-flex items-center whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold', ratePillClass]">
+        {{ effectiveRateMultiplier }}x 倍率
       </span>
       <!-- Checkmark -->
       <svg
@@ -72,14 +66,10 @@ const props = withDefaults(defineProps<Props>(), {
   userRateMultiplier: null
 })
 
-// Whether user has a custom rate different from default
-const hasCustomRate = computed(() => {
-  return (
-    props.userRateMultiplier !== null &&
-    props.userRateMultiplier !== undefined &&
-    props.rateMultiplier !== undefined &&
-    props.userRateMultiplier !== props.rateMultiplier
-  )
+const effectiveRateMultiplier = computed(() => {
+  return props.userRateMultiplier !== null && props.userRateMultiplier !== undefined
+    ? props.userRateMultiplier
+    : props.rateMultiplier
 })
 
 // Rate pill color matches platform badge color

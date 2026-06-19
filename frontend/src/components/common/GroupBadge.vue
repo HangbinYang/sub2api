@@ -11,14 +11,7 @@
     <span class="truncate">{{ name }}</span>
     <!-- Right side label -->
     <span v-if="showLabel" :class="labelClass">
-      <template v-if="hasCustomRate">
-        <!-- 原倍率删除线 + 专属倍率高亮 -->
-        <span class="line-through opacity-50 mr-0.5">{{ rateMultiplier }}x</span>
-        <span class="font-bold">{{ userRateMultiplier }}x</span>
-      </template>
-      <template v-else>
-        {{ labelText }}
-      </template>
+      {{ labelText }}
     </span>
   </span>
 </template>
@@ -57,14 +50,10 @@ const { t } = useI18n()
 
 const isSubscription = computed(() => props.subscriptionType === 'subscription')
 
-// 是否有专属倍率（且与默认倍率不同）
-const hasCustomRate = computed(() => {
-  return (
-    props.userRateMultiplier !== null &&
-    props.userRateMultiplier !== undefined &&
-    props.rateMultiplier !== undefined &&
-    props.userRateMultiplier !== props.rateMultiplier
-  )
+const effectiveRateMultiplier = computed(() => {
+  return props.userRateMultiplier !== null && props.userRateMultiplier !== undefined
+    ? props.userRateMultiplier
+    : props.rateMultiplier
 })
 
 // 是否显示右侧标签
@@ -72,13 +61,13 @@ const showLabel = computed(() => {
   if (!props.showRate) return false
   // 订阅类型：显示天数或"订阅"
   if (isSubscription.value) return true
-  // 标准类型：显示倍率（包括专属倍率）
-  return props.rateMultiplier !== undefined || hasCustomRate.value
+  // 标准类型：显示当前有效倍率
+  return effectiveRateMultiplier.value !== undefined
 })
 
 // Label text
 const labelText = computed(() => {
-  const rateLabel = props.rateMultiplier !== undefined ? `${props.rateMultiplier}x` : ''
+  const rateLabel = effectiveRateMultiplier.value !== undefined ? `${effectiveRateMultiplier.value}x` : ''
   if (isSubscription.value && !props.alwaysShowRate) {
     // 如果有剩余天数，显示天数
     if (props.daysRemaining !== null && props.daysRemaining !== undefined) {
