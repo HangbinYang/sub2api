@@ -33,13 +33,7 @@
             ratePillClass
           ]"
         >
-          <template v-if="hasCustomRate">
-            <span class="mr-1 line-through opacity-50">{{ rateMultiplier }}x</span>
-            <span class="font-bold">{{ effectiveRateMultiplier }}x</span>
-          </template>
-          <template v-else>
-            {{ effectiveRateMultiplier }}x {{ t('admin.groups.rateLabel') }}
-          </template>
+          {{ effectiveRateMultiplier }}x {{ t('admin.groups.rateLabel') }}
         </span>
         <span
           v-if="hasPeakRate"
@@ -101,15 +95,6 @@ const effectiveRateMultiplier = computed(() => {
   return props.userRateMultiplier !== null && props.userRateMultiplier !== undefined
     ? props.userRateMultiplier
     : props.rateMultiplier
-})
-
-const hasCustomRate = computed(() => {
-  return (
-    props.userRateMultiplier !== null &&
-    props.userRateMultiplier !== undefined &&
-    props.rateMultiplier !== undefined &&
-    props.userRateMultiplier !== props.rateMultiplier
-  )
 })
 
 const appStore = useAppStore()
