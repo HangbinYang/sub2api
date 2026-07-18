@@ -23,6 +23,12 @@
             <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-dark-400">
               {{ t('admin.usage.tokenRanking.columns.user') }}
             </th>
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-dark-400">
+              {{ t('admin.usage.tokenRanking.columns.notes') }}
+            </th>
+            <th class="whitespace-nowrap px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-dark-400">
+              {{ t('admin.usage.tokenRanking.columns.balance') }}
+            </th>
             <th
               v-for="col in sortableColumns"
               :key="col.key"
@@ -37,12 +43,12 @@
         </thead>
         <tbody class="divide-y divide-gray-200 bg-white dark:divide-dark-700 dark:bg-dark-900">
           <tr v-if="loading">
-            <td :colspan="sortableColumns.length + 2" class="py-12 text-center">
+            <td :colspan="sortableColumns.length + 4" class="py-12 text-center">
               <LoadingSpinner />
             </td>
           </tr>
           <tr v-else-if="items.length === 0">
-            <td :colspan="sortableColumns.length + 2" class="py-12 text-center text-sm text-gray-400">
+            <td :colspan="sortableColumns.length + 4" class="py-12 text-center text-sm text-gray-400">
               {{ t('admin.dashboard.noDataAvailable') }}
             </td>
           </tr>
@@ -65,6 +71,19 @@
             <td class="max-w-[260px] truncate px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200" :title="item.email">
               {{ item.email || `User #${item.user_id}` }}
               <span class="ml-1 font-normal text-gray-400 dark:text-gray-500">#{{ item.user_id }}</span>
+            </td>
+            <td
+              class="max-w-[260px] truncate px-4 py-3 text-sm text-gray-500 dark:text-gray-400"
+              :title="item.notes || undefined"
+              data-test="user-notes"
+            >
+              {{ item.notes || '-' }}
+            </td>
+            <td
+              class="whitespace-nowrap px-4 py-3 text-right text-sm font-medium tabular-nums text-gray-700 dark:text-gray-300"
+              data-test="user-balance"
+            >
+              ${{ fmtBalance(item.balance) }}
             </td>
             <td class="whitespace-nowrap px-4 py-3 text-right text-sm tabular-nums text-gray-500 dark:text-gray-400">{{ item.requests.toLocaleString() }}</td>
             <td class="whitespace-nowrap px-4 py-3 text-right text-sm tabular-nums text-gray-500 dark:text-gray-400">{{ fmtTokens(item.input_tokens) }}</td>
@@ -131,6 +150,7 @@ let reqSeq = 0
 
 const fmtTokens = (v: number) => formatCompactNumber(v)
 const fmtCost = (v: number) => formatCostFixed(v, 4)
+const fmtBalance = (v: number | undefined) => formatCostFixed(v ?? 0, 2)
 
 const setSort = (key: SortKey) => {
   if (sortBy.value === key) return

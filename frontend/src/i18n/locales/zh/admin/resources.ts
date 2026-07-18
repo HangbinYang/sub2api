@@ -550,6 +550,8 @@ export default {
         userCount: '共 {count} 位用户',
         columns: {
           user: '用户',
+          notes: '备注',
+          balance: '余额',
           requests: '请求数',
           inputTokens: '输入 Token',
           outputTokens: '输出 Token',

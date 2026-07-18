@@ -553,6 +553,8 @@ export default {
         userCount: '{count} users',
         columns: {
           user: 'User',
+          notes: 'Notes',
+          balance: 'Balance',
           requests: 'Requests',
           inputTokens: 'Input Tokens',
           outputTokens: 'Output Tokens',

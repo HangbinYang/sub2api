@@ -10,6 +10,8 @@ describe('zh-Hant locale wording', () => {
     expect(zhHant.nav.settings).toBe('系統設定')
     expect(zhHant.keys.group).toBe('群組')
     expect(zhHant.usage.title).toBe('使用紀錄')
+    expect(zhHant.admin.usage.tokenRanking.columns.notes).toBe('備註')
+    expect(zhHant.admin.usage.tokenRanking.columns.balance).toBe('餘額')
     expect(zhHant.home.viewDocs).toBe('查看文件')
   })
 })
